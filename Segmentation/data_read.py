@@ -53,22 +53,22 @@ if not os.path.exists(dir_save_val):
     os.makedirs(dir_save_val)
 ##
 for i in range(len(train_label_img_paths)):
-    label_ = np.asarray(Image.open(train_label_img_paths[i]))
-    input_ = np.asarray(Image.open(train_input_img_paths[i]))
+    label_ = np.asarray(Image.open(train_label_img_paths[i]).resize((300,300)))
+    input_ = np.asarray(Image.open(train_input_img_paths[i]).resize((300,300)))
 
     np.save(os.path.join(dir_save_train, 'label_%03d.npy' % i), label_)
     np.save(os.path.join(dir_save_train, 'input_%03d.npy' % i), input_)
 
 for i in range(len(test_label_img_paths)):
-    label_ = np.asarray(Image.open(test_label_img_paths[i]))
-    input_ = np.asarray(Image.open(test_input_img_paths[i]))
+    label_ = np.asarray(Image.open(test_label_img_paths[i]).resize((300,300)))
+    input_ = np.asarray(Image.open(test_input_img_paths[i]).resize((300,300)))
 
     np.save(os.path.join(dir_save_test, 'label_%03d.npy' % i), label_)
     np.save(os.path.join(dir_save_test, 'input_%03d.npy' % i), input_)
 
 for i in range(len(val_label_img_paths)):
-    label_ = np.asarray(Image.open(val_label_img_paths[i]))
-    input_ = np.asarray(Image.open(val_input_img_paths[i]))
+    label_ = np.asarray(Image.open(val_label_img_paths[i]).resize((300,300)))
+    input_ = np.asarray(Image.open(val_input_img_paths[i]).resize((300,300)))
 
     np.save(os.path.join(dir_save_val, 'label_%03d.npy' % i), label_)
     np.save(os.path.join(dir_save_val, 'input_%03d.npy' % i), input_)
@@ -83,3 +83,5 @@ plt.imshow(input_, cmap='gray')
 plt.title('input')
 
 plt.show()
+##
+
