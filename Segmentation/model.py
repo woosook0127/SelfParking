@@ -9,7 +9,6 @@ class UNet(nn.Module):
     def __init__(self):
         super(UNet, self).__init__()
 
-        # inputs =  torch.randn((1, 3,) + img_size) # Batch size, Channel, H, W. # Keras.input = HxWxC
         def CBR2d(in_channels, out_channels, kernel_size=3, stride=1, padding=1, bias=True):
             layers = []
             layers += [nn.Conv2d(in_channels=in_channels, out_channels=out_channels,
@@ -19,6 +18,7 @@ class UNet(nn.Module):
             layers += [nn.ReLU()]
 
             cbr = nn.Sequential(*layers)
+
             return cbr
 
         # Contracting path
@@ -62,10 +62,11 @@ class UNet(nn.Module):
         self.unpool2 = nn.ConvTranspose2d(in_channels=128, out_channels=128,
                                           kernel_size=2, stride=2, padding=0, bias=True)
 
-        self.dec2_2 = CBR2d(in_channels=2* 128, out_channels=128)
+        self.dec2_2 = CBR2d(in_channels=2 * 128, out_channels=128)
         self.dec2_1 = CBR2d(in_channels=128, out_channels=64)
 
-        self.unpool1 = nn.ConvTranspose2d(in_channels=64, out_channels=64)
+        self.unpool1 = nn.ConvTranspose2d(in_channels=64, out_channels=64,
+                                          kernel_size=2, stride=2, padding=0, bias=True)
 
         self.dec1_2 = CBR2d(in_channels=2 * 64, out_channels=64)
         self.dec1_1 = CBR2d(in_channels=64, out_channels=64)
